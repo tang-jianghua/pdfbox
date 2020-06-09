@@ -1,0 +1,4 @@
+org\apache\pdfbox\example\Test.class
+org\apache\pdfbox\example\PDFRendering.class
+org\apache\pdfbox\example\PDFTest.class
+org\apache\pdfbox\example\MyFontsScanner.class
