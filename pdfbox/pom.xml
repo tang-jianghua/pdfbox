@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.github.tang-jianghua</groupId>
+    <artifactId>pdfbox</artifactId>
+    <version>2.0.19-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <bouncycastle.version>1.64</bouncycastle.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>fontbox</artifactId>
+            <version>2.0.19</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>${bouncycastle.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcmail-jdk15on</artifactId>
+            <optional>true</optional>
+            <version>${bouncycastle.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>**/*.properties</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <version>2.5.4</version>
+                <configuration>
+                    <instructions>
+                        <Include-Resource>
+                            {maven-resources},
+                            META-INF=target/maven-shared-archive-resources/META-INF,
+                            org/apache/pdfbox/resources=target/classes/org/apache/pdfbox/resources
+                        </Include-Resource>
+                    </instructions>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.rat</groupId>
+                <artifactId>apache-rat-plugin</artifactId>
+                <version>0.12</version>
+                <configuration>
+                    <excludes>
+                        <exclude>src/main/resources/org/apache/pdfbox/resources/afm/*</exclude>
+                        <exclude>src/main/resources/org/apache/pdfbox/resources/icc/*</exclude>
+                        <exclude>src/main/resources/org/apache/pdfbox/resources/glyphlist/glyphlist.txt</exclude>
+                        <exclude>src/main/resources/org/apache/pdfbox/resources/glyphlist/zapfdingbats.txt</exclude>
+                        <exclude>src/main/resources/org/apache/pdfbox/resources/text/BidiMirroring.txt</exclude>
+                        <exclude>src/main/resources/META-INF/services/*</exclude>
+                        <exclude>src/test/resources/input/rendering/*.ai</exclude>
+                        <exclude>src/test/resources/input/*.txt</exclude>
+                        <exclude>src/test/resources/output/*</exclude>
+                        <exclude>src/test/resources/org/apache/pdfbox/pdmodel/sRGB.*</exclude>
+                        <exclude>src/test/resources/org/apache/pdfbox/pdfparser/*.fdf</exclude>
+                        <exclude>release.properties</exclude>
+                        <exclude>src/test/resources/org/apache/pdfbox/encryption/*.der</exclude>
+                        <exclude>src/test/resources/org/apache/pdfbox/encryption/*.pfx</exclude>
+                        <exclude>src/test/resources/org/apache/pdfbox/filter/*.bin</exclude>
+                        <exclude>src/test/resources/org/apache/pdfbox/text/*.txt</exclude>
+                        <exclude>src/main/java/org/apache/pdfbox/filter/CCITTFaxDecoderStream.java</exclude>
+                        <exclude>src/main/java/org/apache/pdfbox/filter/CCITTFaxEncoderStream.java</exclude>
+                        <exclude>src/main/java/org/apache/pdfbox/filter/TIFFExtension.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <!--  <configuration>
+                      <archive>
+                          <manifestEntries>
+                              <Automatic-Module-Name>org.apache.pdfbox</Automatic-Module-Name>
+                          </manifestEntries>
+                      </archive>
+                  </configuration>-->
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+
